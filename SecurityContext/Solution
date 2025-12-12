@@ -1,4 +1,32 @@
+cd broker-deployment
 vim hotfix-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotfix-deployment
+  namespace: quetzal
+  labels:
+    app: hotfix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotfix
+  template:
+    metadata:
+      labels:
+        app: hotfix
+    spec:
+#add  securityContext:
+        runAsUser: 30000
+      containers:
+        - name: hotfix-container
+          image: nginx:stable
+          ports:
+            - containerPort: 80
+#add here securityContext:
+            allowPrivilegeEscalation: false
 
 k apply -f hotfix-deployment.yaml
 k rollout status deployment/hotfix-deployment -n quetzal
