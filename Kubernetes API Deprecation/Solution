@@ -2,7 +2,7 @@ k explain hpa  #find correct api version you can also search on docs
 
 vim ckad-hpa.yaml
 
-apiVersion: autoscaling/v2   // correct here api version
+apiVersion: autoscaling/v2   #correct here api version
 kind: HorizontalPodAutoscaler
 metadata:
   name: web-hpa
@@ -17,7 +17,7 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        target:           // correct here latest target config using docs
+        target:           #correct here latest target config using docs
           type: Utilization
           averageUtilization: 70
 
