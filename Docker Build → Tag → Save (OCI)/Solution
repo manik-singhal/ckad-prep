@@ -1,2 +1,3 @@
+cd home 
 podman build -t devmaq:3.0 -f Dockerfile .
 podman save —format oci-archive -o devmac-3.0.tar denmaq:3.0
