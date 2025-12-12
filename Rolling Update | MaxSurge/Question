@@ -1,0 +1,6 @@
+Q6- Task:
+
+Please complete the following:
+Update the app deployment in the nov2025 NS with a maxSurge of 5% and a maxUnavailable of 2%
+Perform a rolling update of the web1 deployment, changing the repo/nginx image version to 1.13
+Rollback the app deployment to the previous version
