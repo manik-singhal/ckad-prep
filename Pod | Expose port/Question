@@ -1,0 +1,8 @@
+Q8- A web application requires a specific version of redis to be used as a cache.
+Task
+Create a pod, and leave it running when complete:
+The pod must run in the web namespace.
+The namespace has already been created.
+The name of the pod should be cache
+Use the lfccncf/redis image with the 3.2 tag
+Expose port 6379
