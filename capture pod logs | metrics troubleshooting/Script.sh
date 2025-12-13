@@ -61,17 +61,36 @@ EOF
 echo "[+] Installing Metrics Server..."
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
-echo "[+] Patching Metrics Server to allow insecure TLS..."
+echo "[+] Patching Metrics Server with required flags..."
 kubectl patch deployment metrics-server -n kube-system \
   --type='json' \
   -p='[
-        {"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--kubelet-insecure-tls"},
-        {"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname"}
-      ]'
+    {"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"},
+    {"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname"},
+    {"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--metric-resolution=15s"}
+  ]'
 
-echo "[+] Waiting for Metrics Server to stabilize..."
+echo "[+] Waiting for Metrics Server rollout..."
+kubectl rollout status deployment metrics-server -n kube-system
 sleep 10
 
-echo "[+] Script complete!"
-echo "Run this to verify metrics:"
-echo "  kubectl top pods -n cpu-stress"
+echo "[+] Checking if Metrics API is available..."
+if kubectl top nodes >/dev/null 2>&1; then
+    echo "[✓] Metrics API is now working!"
+else
+    echo "[!] Metrics API still unavailable."
+    echo "    Your cluster might require RBAC patching."
+    echo "    To fix manually, run:"
+    echo ""
+    echo "kubectl edit clusterrole system:aggregated-metrics-reader"
+    echo ""
+    echo "Add the following under rules:"
+    echo ""
+    echo "- apiGroups: [\"\"]"
+    echo "  resources: [\"nodes/stats\", \"pods\", \"nodes\"]"
+    echo "  verbs: [\"get\", \"list\", \"watch\"]"
+fi
+
+echo ""
+echo "Try this:"
+echo "  kubectl top po -n cpu-stress"
