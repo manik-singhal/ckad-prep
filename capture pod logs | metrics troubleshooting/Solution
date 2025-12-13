@@ -1,6 +1,14 @@
+Task1
+
 kubectl apply -f /opt/ckadnov2025/winter.yaml
 k logs winter > /opt/ckadnov2025/log_Output.txt
 cat /opt/ckadnov2025/log_Output.txt
 
 ---- 
+
+Task2
+
+k get po -n cpu-stress
+k top pod -n cpu-stress
+k top pod -n cpu-stress --no-headers | sort -k2 -nr | head -n1 | awk '{print$1}' > /opt/ckadnov2025/pod.txt
 
