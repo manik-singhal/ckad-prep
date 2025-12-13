@@ -58,6 +58,8 @@ spec:
     command: ["sh", "-c", "while true; do usleep 50000; done"]
 EOF
 
+echo "" > /opt/ckadnov2025/pod.txt
+
 echo "[+] Installing Metrics Server..."
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
