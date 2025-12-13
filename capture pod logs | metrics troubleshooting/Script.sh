@@ -31,6 +31,10 @@ echo " - /opt/ckadnov2025/log_Output.txt"
 
 #!/bin/bash
 
+# Make sure directory exists
+mkdir -p /opt/ckadnov2025
+echo "[+] Created /opt/ckadnov2025/pod.txt"
+
 echo "[+] Creating namespace cpu-stress..."
 kubectl create namespace cpu-stress --dry-run=client -o yaml | kubectl apply -f -
 
@@ -57,8 +61,6 @@ spec:
     image: busybox
     command: ["sh", "-c", "while true; do usleep 50000; done"]
 EOF
-
-echo "" > /opt/ckadnov2025/pod.txt
 
 echo "[+] Installing Metrics Server..."
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
