@@ -1,0 +1,28 @@
+vim log-cleaner.yaml
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: log-cleaner
+  namespace: production
+spec:
+  schedule: "*/30 * * * *"
+  jobTemplate:
+    spec:
+      completions: 2
+      backoffLimit: 3
+      activeDeadlineSeconds: 30
+      template:
+        spec:
+          containers:
+          - name: log
+            image: busybox
+            command: ["sh", "-c", "date"]
+          restartPolicy: OnFailure
+
+k apply -f log-cleaner.yaml
+k get cronjob -n production
+k create job --from=cronjob/log-cleaner manual-run -n production
+k get jobs -n production
+k get pods -n production
+k logs manual-run-xxxxx -n production
