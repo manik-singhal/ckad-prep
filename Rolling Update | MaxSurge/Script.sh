@@ -47,7 +47,3 @@ EOF
 
 echo ""
 echo "Setup completed!"
-echo "Next steps (you will do manually):"
-echo "1) Patch app deployment with maxSurge:5% and maxUnavailable:2%"
-echo "2) Rolling update web1 to repo/nginx:1.13"
-echo "3) Rollback app deployment"
