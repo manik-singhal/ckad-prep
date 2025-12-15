@@ -1,8 +1,9 @@
 Q14-Task
 
-Add readinessProbe to nginx deployment:
-
-Type: HTTP GET
+In namespace default, an nginx Deployment exists.
+Configure the Deployment so that the nginx container uses a readinessProbe with the following requirements:
+Probe type: HTTP GET
 Path: /ready
 Port: 80
 Initial delay: 5 seconds
+Do not modify any other settings.
