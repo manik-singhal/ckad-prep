@@ -3,3 +3,15 @@ Q4- A pod within the Deployment named dev-deployment and in namespace meta is lo
 Find errors, including User "system:serviceaccount:meta:default" cannot list resource "deployment" [...] in the namespace meta.
 2. Update the Deployment dev-deployment to resolve the errors in the log of the pod.
 The dev-deployment's manifest can be found at ~/dev-deployment.yaml
+
+-----
+
+In namespace `meta`, Deployment `dev-deployment` exists.
+Its Pods run a `kubectl` loop trying to list Deployments in the same namespace and log an authorization error.
+
+Without deleting the Deployment, perform the following:
+
+1. Create a ServiceAccount `dev-sa` in namespace `meta`.
+2. Create a Role `dev-deploy-role` in namespace `meta` that allows `get`, `list`, and `watch` on resource `deployments` in API group `apps`.
+3. Create a RoleBinding `dev-deploy-rb` in namespace `meta` binding `dev-deploy-role` to `dev-sa`.
+4. Update Deployment `dev-deployment` so that its Pods run using ServiceAccount `dev-sa`.
