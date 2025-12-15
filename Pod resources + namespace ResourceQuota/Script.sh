@@ -1,1 +1,1 @@
-#No script needed
+k create ns dev
