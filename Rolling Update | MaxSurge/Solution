@@ -1,5 +1,12 @@
 k get deploy -n nov2025
 k edit deploy app -n nov2025
+
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 5%
+      maxUnavailable: 2%
+
 k rollout restart deploy app -n nov2025
 k rollout status deploy app -n nov2025
 k rollout history deploy app -n nov2025
