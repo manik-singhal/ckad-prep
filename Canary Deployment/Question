@@ -1,0 +1,17 @@
+Q15-Task
+
+Implement canary release using replicas.
+
+Main: 3 replicas, image: nginx:1.14
+Canary: 1 replica, image: nginx:1.16
+Both must share selector: app=web
+
+----
+
+* Same base Deployment as stable
+
+* Different label (e.g. `version=v2`)
+
+* Control replicas
+
+* Service selects both
