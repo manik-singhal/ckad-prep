@@ -1,0 +1,19 @@
+Edit the Ingress:
+
+```bash
+kubectl edit ingress store-ingress
+```
+
+Update the rule under `.spec.rules[0].http.paths[0]` to:
+
+```yaml
+path: /shop
+pathType: Prefix
+backend:
+  service:
+    name: store-svc
+    port:
+      number: 8080
+```
+
+Save and exit.
