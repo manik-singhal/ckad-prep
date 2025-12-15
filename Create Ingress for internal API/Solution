@@ -19,3 +19,4 @@ spec:
                   number: 3000
 
 k apply -f ingress.yaml
+k describe ingress internal-api-ingress
