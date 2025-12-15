@@ -1,0 +1,34 @@
+Delete and recreate:
+kubectl delete pod startup-pod
+vim pod.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: startup-pod
+  namespace: default
+spec:
+  volumes:
+    - name: app-vol
+      emptyDir: {}
+  initContainers:
+    - name: init-script
+      image: busybox
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          echo 'echo start app' > /app/start.sh
+          chmod +x /app/start.sh
+      volumeMounts:
+        - name: app-vol
+          mountPath: /app
+  containers:
+    - name: app
+      image: busybox
+      command: ["/app/start.sh"]
+      volumeMounts:
+        - name: app-vol
+          mountPath: /app
+
+k apply -f pod.yaml
+k describe pod startup-pod
