@@ -1,0 +1,11 @@
+Q12-In namespace `default`, the following resources exist:
+
+- Deployment `internal-api`
+- Service `internal-api-svc` exposing port `3000`
+
+Create an Ingress named `internal-api-ingress` in namespace `default` that:
+
+- Routes host `internal.company.local`
+- Path `/`
+- To Service `internal-api-svc` on port `3000`
+- Uses the stable `networking.k8s.io/v1` API
