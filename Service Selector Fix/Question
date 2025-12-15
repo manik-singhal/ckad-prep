@@ -1,0 +1,20 @@
+Q17-Task
+
+Fix broken service selector.
+
+Given:
+
+selector:
+  WRONG: label
+
+---
+
+* Service existed
+
+* Pods existed
+
+* Traffic didn’t flow
+
+* Selector mismatch — fix it
+
+Easy if you check `kubectl get ep`.
