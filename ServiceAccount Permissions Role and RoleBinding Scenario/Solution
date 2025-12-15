@@ -11,7 +11,7 @@ metadata:
   namespace: meta
   name: deployment-reader
 rules:
-- apiGroups: ["apps"] # "" indicates the core API group
+- apiGroups: ["apps"]
   resources: ["deployments"]
   verbs: ["get", "watch", "list"]
 
