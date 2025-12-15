@@ -1,0 +1,2 @@
+k get po -n meta
+k logs dev-deployment-949954f87-bb5bj -n meta
