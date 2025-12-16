@@ -1,0 +1,21 @@
+kubectl edit deployment nginx
+
+spec:
+  template:
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        readinessProbe:  #correct placement
+          httpGet:
+            path: /ready
+            port: 80
+          initialDelaySeconds: 5
+
+Save and exit.
+
+kubectl describe deployment nginx
+kubectl describe pod <nginx-pod-name>
+You should see: Readiness:  http-get http://:80/ready delay=5s
