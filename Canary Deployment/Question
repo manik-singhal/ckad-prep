@@ -1,21 +1,24 @@
 Q15-Task
 
-Implement canary release using replicas.
+In namespace default, a Deployment for a web application already exists.
 
-Main: 3 replicas, image: nginx:1.14
-Canary: 1 replica, image: nginx:1.16
-Both must share selector: app=web
+Implement a canary release for the application using replica-based traffic splitting.
 
-----
+Requirements:
 
-* Same base Deployment as stable
+The stable deployment must:
+Use image nginx:1.14
+Run 3 replicas
 
-* Different label (e.g. `version=v2`)
+The canary deployment must:
+Use image nginx:1.16
+Run 1 replica
 
-* Control replicas
+Both deployments must:
+Share the same application selector:
+app=web
 
-* Service selects both
+Be exposed by the same Service
+Do not modify the Service.
 
----
-
-Canary - 10 replicas and 80%-20% traffic
+Ensure traffic is split proportionally based on the number of replicas.
