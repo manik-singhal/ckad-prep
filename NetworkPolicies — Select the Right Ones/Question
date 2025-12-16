@@ -24,3 +24,20 @@ You may only modify Pod labels.
 Do not create or edit any NetworkPolicy resources.
 
 Ensure communication is established between the three Pods.
+
+---
+
+In namespace default, multiple NetworkPolicies already exist.
+
+Communication between certain Pods is currently blocked.
+
+Without modifying the NetworkPolicy resources, configure the environment so that:
+
+A Pod labeled app=db, tier=backend
+
+Can receive traffic from:
+
+Pods labeled app=api, tier=frontend
+Pods labeled role=monitor
+
+You may only modify Pod labels.
