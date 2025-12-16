@@ -1,15 +1,17 @@
 Q16-Scenario
 
-In namespace default, several Pods already exist, including a Pod with the following labels:
+In namespace default, four NetworkPolicies already exist and are deployed.
+
+You are NOT allowed to edit the NetworkPolicy definitions.
+
+Several Pods already exist, including a Pod with the following labels:
 
 app=db
 tier=backend
 
-Four NetworkPolicy manifests are provided in the current working directory.
+Currently, this Pod cannot receive traffic from other Pods.
 
-You are not allowed to modify the contents of these NetworkPolicy manifests.
-
-Configure the cluster so that the Pod labeled app=db, tier=backend accepts ingress traffic only from:
+Configure the environment so that ingress traffic is allowed to the backend Pod only from:
 
 Pods with labels:
 app=api
@@ -18,6 +20,7 @@ tier=frontend
 Pods with labels:
 role=monitor
 
-Apply only the required NetworkPolicy manifests to achieve this configuration.
+You may only modify Pod labels.
+Do not create or edit any NetworkPolicy resources.
 
-Do not apply any unnecessary NetworkPolicy manifests.
+Ensure communication is established between the three Pods.
