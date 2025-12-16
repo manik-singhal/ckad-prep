@@ -1,2 +1,1 @@
-
 kubectl create ns production 
