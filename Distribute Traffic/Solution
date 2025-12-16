@@ -1,0 +1,68 @@
+vim v1.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-v1
+  namespace: production
+spec:
+  replicas: 8
+  selector:
+    matchLabels:
+      app: webapp
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: webapp
+        version: v1
+    spec:
+      containers:
+      - name: webapp
+        image: nginx
+        ports:
+        - containerPort: 80
+
+k apply -f v1.yaml
+vim v2.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-v2
+  namespace: production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webapp
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: webapp
+        version: v2
+    spec:
+      containers:
+      - name: webapp
+        image: nginx
+        ports:
+        - containerPort: 80
+
+k apply -f v2.yaml
+vim svc.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-svc
+  namespace: production
+spec:
+  selector:
+    app: webapp
+  ports:
+  - port: 80
+    targetPort: 80
+
+k apply -f svc.yaml
+
