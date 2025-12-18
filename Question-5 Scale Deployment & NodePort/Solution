@@ -28,6 +28,8 @@ spec:
       - image: nginx
         imagePullPolicy: Always
         name: nginx
+        ports:   # add this too
+        - containerPort: 8080 
 
 k get pods -n nov2025 --show-labels
 
